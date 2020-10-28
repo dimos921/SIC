@@ -148,7 +148,6 @@ namespace SIC
             text_strBd.Clear();
             while (line != null)
             {
-                bool _flag = false;
                 objCode = "";
                 char comment=' ';
                 try {comment = line.Split('\t')[1][0]; }catch { }
@@ -181,12 +180,10 @@ namespace SIC
                                 }
                             }
                             objCode = opcodeTable[assemberCode[2]].ToString("X2") + symbol.ToString("X4");
-                            _flag = true;
                         }
                         else if (assemberCode[2] == "WORD")
                         {
                             objCode = int.Parse(assemberCode[3]).ToString("X6");
-                            _flag = true;
                         }
                         else if (assemberCode[2] == "BYTE")
                         {
@@ -201,11 +198,10 @@ namespace SIC
                             }
                             else if (_constent[0] == "X")
                                 objCode = _constent[1];
-                            _flag = true;
                         }
                     }
 
-                    if (((text_strBd.Length + objCode.Length) > 60 || !_flag) && objCode.Length > 0)
+                    if ((text_strBd.Length + objCode.Length) > 60 && objCode.Length > 0)
                     {
                         string_strBd.Append((text_strBd.Length / 2).ToString("X2")).Append(text_strBd.ToString());
                         objFile.WriteLine(string_strBd.ToString());
@@ -244,7 +240,6 @@ namespace SIC
             objFile.Close();
             outFile.Close();
             file.Close();
-
         }
     }
 }
